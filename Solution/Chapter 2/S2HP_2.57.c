@@ -1,4 +1,5 @@
 /*!
+ * ◆
  * Solution to Homework Problem 2.57 (page 153)
  *
  * Write procedures `show_short`, `show_long`, and `show_double` that
@@ -8,6 +9,7 @@
  * This exercise should be a straightforward variation on the existing
  * code
  */
+
 #include <stdio.h>
 
 typedef unsigned char *byte_pointer;
@@ -43,7 +45,6 @@ void show_double(double x)
     {
         show_bytes((byte_pointer) &x, sizeof(int));
     }
-
     void show_float(float x)
     {
         show_bytes((byte_pointer) &x, sizeof(float));
@@ -54,3 +55,17 @@ void show_double(double x)
         show_bytes((byte_pointer) &x, sizeof(void *));
     }
 */
+
+int main(void)
+{
+    short int s_int =    7;
+    long int l_int =    77;
+    double d_flt =     777;
+
+    show_short(s_int);
+    show_long(l_int);
+    show_double(d_flt);
+
+    getchar();
+    return 0;
+}
