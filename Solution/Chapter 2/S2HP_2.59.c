@@ -17,26 +17,37 @@
 
 #include <stdio.h>
 
+int is_litter_endian(void)
+{
+        /* MSB = 0, LSB = 1 */
+        int x = 1;
+        /* Return MSB when big-endian, LSB when little-endian */
+        return (int) (* (char *) &x);
+}
+
 /* Run in the big-endian machine */
-//int mask_msb(int x, int y)
-//{
-//    return (x & 0xFF) | (y & ~0xFF);
-//}
+int mask_lsb(int x, int y)
+{
+        return (x & 0xFF) | (y & ~0xFF);
+}
 
 /* Run in the little-endian machine */
 int mask_msb(int x, int y)
 {
-    int w = sizeof(int) << 3;
-    return ( x & ~0xFF) | (y & (0xFF));
+        int w = sizeof(int) << 3;
+        return ( x & ~0xFF) | (y & (0xFF));
 }
 
 int main(void)
 {
-    int testNum_0 = 0x89ABCDEF;
-    int testNum_1 = 0X76543210;
+        int test_hex_0 = 0x89ABCDEF;
+        int test_hex_1 = 0X76543210;
+        int result = mask_lsb(test_hex_0, test_hex_1);
 
-    printf("%X\n", mask_msb(testNum_0, testNum_1));
+        (is_litter_endian()) &&
+                (result = mask_msb(test_hex_0, test_hex_1));
+        printf("%X\n", result);
 
-    getchar();
-    return 0;
+        getchar();
+        return 0;
 }
