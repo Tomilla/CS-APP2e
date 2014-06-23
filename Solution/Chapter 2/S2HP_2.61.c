@@ -61,3 +61,11 @@ int main(void)
         getchar();
         return 0;
 }
+
+/*!
+ * EPILOGUE
+ *
+ * This exercises require thinking about the logical operation `!` in a
+ * nontraditional way. Normally we think of it as logical negation. More
+ * generally, it detects weather there is any nonzero bit in a word.
+ */
