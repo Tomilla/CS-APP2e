@@ -18,7 +18,7 @@
 
 unsigned srl(unsigned x, int k)
 {
-
+        /* performs shift arithmetically */
         unsigned xsra = (int) x >> k;
 
         /* First masking bits constructor */
@@ -36,6 +36,7 @@ unsigned srl(unsigned x, int k)
 
 unsigned sra(unsigned x, int k)
 {
+        /* performs shift logically */
         int xsrl = (unsigned) x >> k;
         int sign = x & 1 << (w - 1);
         int mask = ((1 << k) - 1) << (w - k);
@@ -67,7 +68,8 @@ int main(void)
 /*
  * EPILOGUE
  *
- * In `srl` fuction, we need use masking-bits build a w-bits patterns
- * `M` [w-1, w-2, w-3 ... 0] to simulate logical shift, then exploits
- * bit-wise AND to mask off some set of sign-extend bit(all set to 0).
+ * These problems are fairly tricky.They require generating masks based
+ * on the shift amounts. Shift value k equal to 0 must be handled as a
+ * special case, since otherwise we would me generating the mask by
+ * performing a left shift by 32.
  */
