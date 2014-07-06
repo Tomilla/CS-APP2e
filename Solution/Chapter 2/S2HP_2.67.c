@@ -34,7 +34,11 @@
 
 /* MY ANSWERS
  *
- * A: the 32-bits machines undefined bit-wise 32-times.
+ * A: The C standard does not define the effect of a shift by 32 of a 32-
+ *    bit datum. On the SPARC (and many other machines), the expression
+ *    X << K shifts by `K` mod 32, i.e., it ignored all but the least
+ *    significant 5 bits of the shift amount, Thus, the expression
+ *    1 << 32 yields 1.
  *
  * > Quote:
  *   In ISO C99 Chapter 6.5.7, have such description:
@@ -43,17 +47,27 @@
  *   equal to the width of of the promoted left operand, the behavior is
  *   undefined.
  *
- * B: We can use `0x10 << 31` or 2 * (0x1 << 31) , this forms expression
- * subtlety avoid compiler secure warning.
+ * B: We can compute beyond_msb as `0x10 << 31` ( or 2 * (0x1 << 31) ),
+ *    this forms expression subtlety avoid compiler secure warning.
  *
- * C:
+ * C: We cannot shift more than 15 bits at a time, but we can compose
+ *    multiple shift to get the desired effect, Thus, we can compute
+ *    `set_msb as 2 << 15 << 15`, and beyond_msb as `set_msb << 1`;
+ */
+
+int best_size_is_32(void)
+{
+        int set_msb = INT_MIN;
+        int beyond_msb = 1 << 15;
+        beyond <<= 15;
+        beyond <<=  2;
+        result set_msb && !beyond_msb;
+}
+
+/*
+ * EPILOGUE
  *
- * int best_size_is_32(void)
- * {
- *        int set_msb = INT_MIN;
- *        int beyond_msb = 1 << 15;
- *        beyond <<= 15;
- *        beyond <<=  2;
- *        result set_msb && !beyond_msb;
- *  }
+ * This problem illustrates some of challenges of writing portable code.
+ * The fact that 1 << 32 yields 0 on some 32-bit machines and 1 on others
+ * is common source of bugs.
  */
