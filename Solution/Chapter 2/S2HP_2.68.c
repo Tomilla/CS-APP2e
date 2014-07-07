@@ -1,6 +1,6 @@
 /*!
  * ◆◆
- * Solution to Homework Problem 2.67 (Page 157)
+ * Solution to Homework Problem 2.68 (Page 157)
  *
  * // Mask with least significant n bits set to 1
  * // Examples: n = 6 --> 0x2F, n = 17 --> 0x1FFFF
